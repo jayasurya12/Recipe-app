@@ -2,20 +2,20 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/splide/dist/css/splide.min.css'
+import { Link } from 'react-router-dom';
 
 const Popular = () => {
     const [popular, setPopular] = useState([])
     const getApi = async () => {
-        const check =localStorage.getItem('popular');
-        if(check){
+        const check = localStorage.getItem('popular');
+        if (check) {
             setPopular(JSON.parse(check));
             console.log(JSON.parse(check));
-        }else{
-        const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEYS}&number=9`);
-        const data = await api.json();
-        localStorage.setItem("popular",JSON.stringify(data.recipes))
-        console.log(JSON.stringify(data.recipes))
-        setPopular(data.recipes);
+        } else {
+            const api = await fetch(`https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEYS}&number=9`);
+            const data = await api.json();
+            localStorage.setItem("popular", JSON.stringify(data.recipes));
+            setPopular(data.recipes);
         }
     }
     useEffect(() => {
@@ -26,22 +26,24 @@ const Popular = () => {
             <Contaier>
                 <h3>Popular recipes</h3>
                 <Splide
-                options={{
-                    perPage:4,
-                    arrows:false,
-                    pagination:false,
-                    drag:'free',
-                    gap:"2rem"
-                }}
+                    options={{
+                        perPage: 4,
+                        arrows: false,
+                        pagination: false,
+                        drag: 'free',
+                        gap: "2rem"
+                    }}
                 >
                     {
                         popular.map((recipe, i) => {
                             return (
                                 <SplideSlide key={recipe.id}>
                                     <Card>
-                                        <p>{recipe.title}</p>
-                                        <img src={recipe.image} alt={recipe.title} />
-                                        <Gradient/>
+                                        <Link to={'/recipe/' + recipe.id}>
+                                            <p>{recipe.title}</p>
+                                            <img src={recipe.image} alt={recipe.title} />
+                                            <Gradient />
+                                        </Link>
                                     </Card>
                                 </SplideSlide>
                             )
@@ -85,7 +87,7 @@ const Card = styled.div`
         align-items:center;
     } 
 `;
-const Gradient =styled.div`
+const Gradient = styled.div`
     z-index:3;
     position:absolute;
     width:100%;

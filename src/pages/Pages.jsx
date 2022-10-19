@@ -1,14 +1,22 @@
 import React from 'react'
 import Home from './Home'
-import {Routes,Route} from 'react-router-dom'
-import Cuisines from '../components/Cuisines'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import Cuisine from './Cuisines'
+import Searched from './Searched'
+import Recipe from './Recipe'
+import { AnimatePresence } from 'framer-motion'
 
 const Pages = () => {
+  const location =useLocation();
   return (
-      <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/cuisine' element={<Cuisines/>}/>
+    <AnimatePresence exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
+        <Route path='/' element={<Home />} />
+        <Route path='/cuisine/:type' element={<Cuisine />} />
+        <Route path='/searched/:search' element={<Searched />} />
+        <Route path='/recipe/:name' element={<Recipe />} />
       </Routes>
+    </AnimatePresence>
   )
 }
 
