@@ -13,9 +13,9 @@ const App = () => {
       <GiKnifeFork style={{fontSize:'4rem'}}/>
       <Logo to={'/'}>deliciouss</Logo>
     </nav>
-    {/* <Serach/>
+      <Serach/>
       <Category/>
-      <Pages/> */}
+      <Pages/>
     </BrowserRouter>
   )
 }

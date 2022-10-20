@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { Link, useParams } from 'react-router-dom'
 
 const Cuisines = () => {
-  console.log('cuisine')
   const [cuisine, setCuisine] = useState([]);
   let params = useParams();
   const getCuisine = async (name) => {
@@ -14,7 +13,6 @@ const Cuisines = () => {
   }
   useEffect(() => {
     getCuisine(params.type);
-    console.log(cuisine)
   }, [params.type]);
   return (
     <Grid
@@ -26,7 +24,7 @@ const Cuisines = () => {
       {cuisine.map((item) => {
         return (
           <Card key={item.id}>
-            <Link to={'/recipe' + item.id}>
+            <Link to={'/recipe/' + item.id}>
               <img src={item.image} alt={item.title} />
               <h4>{item.title}</h4>
             </Link>
